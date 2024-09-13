@@ -16,8 +16,8 @@ const toggleMenu = () => {
     </div>
     <div :class="['flex flex-col', { 'hidden': !isMenuOpen }]">
       <nav class="flex flex-col">
-        <RouterLink to="/" exact class="p-2 hover:bg-red-600">Home</RouterLink>
-        <RouterLink to="/schedule" exact class="p-2 hover:bg-red-600">Schedule</RouterLink>
+        <RouterLink to="/" exact class="p-2 hover:bg-red-600">AK Dienstplan Tool</RouterLink>
+        <RouterLink to="/schedule" exact class="p-2 hover:bg-red-600">Dienstplanerstellung</RouterLink>
       </nav>
     </div>
   </header>
