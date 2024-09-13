@@ -4,7 +4,7 @@ import * as XLSX from 'xlsx';
 import axios from "axios";
 import { useRouter } from 'vue-router';
 
-const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY
+const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 
 export default defineComponent({
   setup() {
