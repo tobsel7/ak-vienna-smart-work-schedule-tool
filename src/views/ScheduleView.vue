@@ -17,7 +17,10 @@ interface Schedule {
 
 export default defineComponent({
   setup() {
-    const fileData = ref<any>(null);
+    const employeeInfo = ref<any>(null);
+    const absencesInfo = ref<any>(null);
+    const requirementsInfo = ref<any>(null);
+
     const schedules = ref<Schedule[]>([]);
 
     const handleFileUpload = (event: Event) => {
@@ -26,18 +29,25 @@ export default defineComponent({
         const reader = new FileReader();
         reader.onload = (e) => {
           const data = new Uint8Array(e.target?.result as ArrayBuffer);
-          const workbook = XLSX.read(data, { type: 'array' });
-          const sheetName = workbook.SheetNames[0];
-          const worksheet = workbook.Sheets[sheetName];
-          fileData.value = XLSX.utils.sheet_to_json(worksheet);
-          console.log(fileData.value);
+          const workbook = XLSX.read(data, { type: 'array', cellDates: true });
+          const employeeSheet = workbook.Sheets[workbook.SheetNames[0]];
+          employeeInfo.value = XLSX.utils.sheet_to_json(employeeSheet, { raw: false });
+          console.log(employeeInfo.value);
+
+          const absencesSheet = workbook.Sheets[workbook.SheetNames[1]];
+          absencesInfo.value = XLSX.utils.sheet_to_json(absencesSheet, { raw: false });
+          console.log(absencesInfo.value);
+
+          const requirementsSheet = workbook.Sheets[workbook.SheetNames[1]];
+          requirementsInfo.value = XLSX.utils.sheet_to_json(requirementsSheet, { raw: false });
+          console.log(requirementsInfo.value);
         };
         reader.readAsArrayBuffer(file);
       }
     };
 
     const processWithChatGPT = async () => {
-      if (!fileData.value) {
+      if (!employeeInfo.value) {
         console.error("No file data available");
         return;
       }
@@ -47,10 +57,14 @@ export default defineComponent({
         const promptTemplate = templateResponse.data;
 
         // Replace <INPUT-DATA> with the actual JSON data
-        const prompt = promptTemplate.replace('<INPUT-DATA>', JSON.stringify(fileData.value, null, 2));
+        const prompt = promptTemplate
+            .replace('<INPUT-EMPLOYEE-INFO>', JSON.stringify(employeeInfo.value, null, 2))
+            .replace('<INPUT-ABSENCES-INFO>', JSON.stringify(absencesInfo.value, null, 2))
+            .replace('<INPUT-REQUIREMENTS-INFO>', JSON.stringify(requirementsInfo.value, null, 2));
 
+        console.log(prompt)
         const response = await axios.post('https://api.openai.com/v1/chat/completions', {
-          model: 'gpt-3.5-turbo',
+          model: 'gpt-4o',
           messages: [{
             role: "user",
             content: prompt
@@ -61,7 +75,9 @@ export default defineComponent({
             'Content-Type': 'application/json',
           },
         });
+        console.log(response)
         const responseContent = response.data.choices[0].message.content;
+        console.log(responseContent)
         const jsonMatch = responseContent.match(/\{[\s\S]*\}/);
 
         if (jsonMatch) {
@@ -72,10 +88,6 @@ export default defineComponent({
         } else {
           console.error("No valid JSON found in the response content");
         }
-        //const processedData = JSON.parse(response.data.choices[0].message.content);
-        //console.log(processedData);
-        //schedules.value = processedData.schedule;
-        //console.log(schedules.value);
       } catch (error) {
         console.error(error);
       }
