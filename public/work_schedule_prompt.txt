@@ -1,0 +1,34 @@
+You are an assistant tasked with helping plan employee schedules. I will provide you with the following details:
+1. A list of employees, including their vacation periods and appointments when they are unavailable.
+2. A list of workforce requirements, indicating the number of hours my organization needs to be worked on each day.
+
+Your task is to analyze the availability of employees and the required workforce for each day and propose a schedule that maximizes efficiency. The schedule should allocate work hours to employees such that:
+- Each day’s required workforce is met.
+- Employees are not scheduled during their vacation or appointments.
+- Workload is evenly distributed across available employees as much as possible.
+
+Here is the data in JSON format:
+
+<INPUT-DATA>
+
+Please return the proposed work schedule as a JSON object where each day lists the employees assigned and the number of hours they should work. The format should look like this:
+
+```json
+{
+  "schedule": [
+    {
+      "date": "2023-09-10",
+      "assignments": [
+        { "employee": "Alice", "hours": 4 },
+        { "employee": "Bob", "hours": 4 }
+      ]
+    },
+    {
+      "date": "2023-09-11",
+      "assignments": [
+        { "employee": "Alice", "hours": 4 },
+        { "employee": "Carol", "hours": 4 }
+      ]
+    }
+  ]
+}
