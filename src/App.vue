@@ -10,14 +10,14 @@ const toggleMenu = () => {
 </script>
 
 <template>
-  <header class="flex items-center p-4 bg-red-500 text-white">
+  <header class="flex items-center p-4 bg-yellow-500 text-white">
     <div class="mr-4 cursor-pointer" @click="toggleMenu">
       &#9776; <!-- Burger icon -->
     </div>
-    <div :class="['flex flex-col', { 'hidden': !isMenuOpen }]">
-      <nav class="flex flex-col">
-        <RouterLink to="/" exact class="p-2 hover:bg-red-600">AK Dienstplan Tool</RouterLink>
-        <RouterLink to="/schedule" exact class="p-2 hover:bg-red-600">Dienstplanerstellung</RouterLink>
+    <div :class="['bg-yellow-500 p-4', { 'hidden': !isMenuOpen }]">
+      <nav class="bg-yellow-500 p-4">
+        <RouterLink to="/" exact class="p-2 hover:bg-gray-600">Home</RouterLink>
+        <RouterLink to="/schedule" exact class="p-2 hover:bg-gray-600">AI Dienstplanerstellung</RouterLink>
       </nav>
     </div>
   </header>

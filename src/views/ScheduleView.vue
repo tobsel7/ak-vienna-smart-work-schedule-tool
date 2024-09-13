@@ -98,10 +98,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>
-    <h1 class="text-2xl font-bold mb-4 custom-heading">Dienstplan</h1>
-    <input type="file" @change="handleFileUpload" class="button-custom" />
-    <button @click="processWithChatGPT" class="button-custom mt-4">Plan erstellen</button>
+  <div class="p-4">
+    <h1 class="text-2xl font-bold mb-4 custom-heading">AI Dienstplanerstellung</h1>
+    <input type="file" @change="handleFileUpload" class="file-input mb-4"/>
+    <button @click="processWithChatGPT" class="button-custom block">Plan erstellen</button>
     <table class="table-custom">
       <thead>
       <tr>

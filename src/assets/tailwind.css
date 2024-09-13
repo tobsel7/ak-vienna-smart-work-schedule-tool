@@ -4,7 +4,7 @@
 
 /* Custom styles */
 .table-custom {
-  @apply w-full border-collapse my-4 text-left;
+  @apply w-full border-collapse my-4 text-left p-4;
 }
 
 .table-custom th, .table-custom td {
@@ -12,25 +12,29 @@
 }
 
 .table-custom th {
-  @apply bg-red-500 text-white;
+  @apply bg-yellow-500 text-white;
 }
 
 .table-custom tr:nth-child(even) {
-  @apply bg-red-100;
+  @apply bg-gray-100;
 }
 
 .table-custom tr:hover {
-  @apply bg-red-200;
+  @apply bg-gray-200;
 }
 
 .button-custom {
-  @apply bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600;
+  @apply bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600;
+}
+
+.file-input {
+  @apply border border-gray-300 p-2 rounded;
 }
 
 .nav-burger {
-  @apply bg-red-500 text-white p-4;
+  @apply bg-yellow-500 text-white p-4;
 }
 
 .nav-burger:hover {
-  @apply bg-red-600;
+  @apply bg-yellow-600;
 }
